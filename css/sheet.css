@@ -1,0 +1,50 @@
+body {
+	/*padding-top: 10px;*/
+	position: relative;
+	background-color: grey;
+}
+
+.navbar-nav>li {
+	float: right;
+}
+
+.navbarNav {
+	float:right
+}
+
+#navbaar {
+	background-image: url("../img/rickMorty.jpg")
+}
+
+.navbar {
+	margin-bottom: 0px;
+	min-height: 80px;
+}
+
+.content {
+	height: 100vh;
+}
+
+/*.affix {
+	top: 0;
+	width: 100%;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	z-index: 9999;
+}
+
+.affix a {
+	color: black !important;
+	padding: 10px;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+}
+
+.affix-top a {
+	padding: 25px;
+}*/
+
+/*.affix + .container-fluid {
+	padding-top: 200px;
+}*/
+}
