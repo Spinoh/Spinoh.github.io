@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivinhador</title>
+    <script src="freguesias.js"></script>
+</head>
+<body>
+    <h1>Dá-me as letras que eu dou-te a freguesia</h1>
+    <input type="text" id="letras">
+    <button onclick="checkFreguesias()">PROCURAR</button>
+    <p id="resposta"></p>
+</body>
+<script>
+    const freguesias = getFreguesias();
+    function checkFreguesias() {
+        let letras = document.getElementById("letras").value.replace(/\s+/g, '').toLowerCase();
+        let resposta = document.getElementById("resposta")
+        console.log(letras)
+
+        if (letras.length == 0) {
+            resposta.innerText = `tens de escrever`
+        }
+        else {
+            results = [];
+            letrasArr = letras.split('')
+            console.log(letrasArr)
+            found = false
+            for (i = 0; i < freguesias.length; i++) {
+                freguesia = freguesias[i].toLowerCase()
+                if (freguesia.length > letrasArr.length + 5 || letrasArr.length > freguesia.length) {
+                    continue
+                }
+                for (j = 0; j < letrasArr.length; j++) {
+                    if (!freguesia.includes(letrasArr[j])) {
+                        found = false
+                        break;
+                    }
+                    found = true   
+                }
+                if (found) {
+                    results = [...results, freguesias[i]]
+                }
+            }
+            if (results.length > 0) {
+                resposta.innerText = `A freguesia é ${results.join('\n')}`
+            } else {
+                resposta.innerText = `não consegui encontrar`
+            }
+        }
+        
+    }
+
+    function isLetter(char) {
+        return str.match(/[a-zA-Z]/i);
+    }
+</script>
+</html>
