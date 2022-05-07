@@ -18,30 +18,22 @@
     function checkFreguesias() {
         let letras = document.getElementById("letras").value.replace(/\s+/g, '').toLowerCase();
         let resposta = document.getElementById("resposta")
-        console.log(letras)
+        
+        console.log("letras")
+        letrasArr = letras.split('').sort().join('')
 
         if (letras.length == 0) {
             resposta.innerText = `tens de escrever`
         }
         else {
             results = [];
-            letrasArr = letras.split('')
-            console.log(letrasArr)
-            found = false
+
             for (i = 0; i < freguesias.length; i++) {
-                freguesia = freguesias[i].toLowerCase()
-                if (freguesia.length > letrasArr.length + 5 || letrasArr.length > freguesia.length) {
-                    continue
-                }
-                for (j = 0; j < letrasArr.length; j++) {
-                    if (!freguesia.includes(letrasArr[j])) {
-                        found = false
-                        break;
-                    }
-                    found = true   
-                }
-                if (found) {
+                freguesia = freguesias[i].normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\W+/g, '').toLowerCase().split('').sort().join('')
+                
+                if (freguesia === letrasArr) {
                     results = [...results, freguesias[i]]
+                    break
                 }
             }
             if (results.length > 0) {
@@ -53,8 +45,5 @@
         
     }
 
-    function isLetter(char) {
-        return str.match(/[a-zA-Z]/i);
-    }
 </script>
 </html>
