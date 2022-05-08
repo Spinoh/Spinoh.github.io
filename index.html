@@ -19,7 +19,6 @@
         let letras = document.getElementById("letras").value.replace(/\s+/g, '').toLowerCase();
         let resposta = document.getElementById("resposta")
         
-        console.log("letras")
         letrasArr = letras.split('').sort().join('')
 
         if (letras.length == 0) {
@@ -29,10 +28,11 @@
             results = [];
 
             for (i = 0; i < freguesias.length; i++) {
-                freguesia = freguesias[i].normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\W+/g, '').toLowerCase().split('').sort().join('')
-                
-                if (freguesia === letrasArr) {
-                    results = [...results, freguesias[i]]
+                freguesiaName = freguesias[i][0]
+                freguesiaTester = freguesias[i][1]
+
+                if (freguesiaTester === letrasArr) {
+                    results = [...results, freguesiaName]
                     break
                 }
             }
