@@ -1,10 +1,46 @@
 function getFreguesias() {
-    return localidades.map(local => {
-        return [local, local.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\W+/g, '').toLowerCase().split('').sort().join('')]
+    let result = []
+    
+    localidades.map(local => {
+        return splitUnion(local)
+    })
+    .map(local => {
+        result = [...result, ...local]
+    });
+
+    return result.map(local => {
+        return [
+            local, 
+            local.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/\W+/g, '')
+                .toLowerCase()
+                .split('')
+                .sort()
+                .join('')]
     })
 }
 
-let localidades = [
+function splitUnion(localidade) {
+    if (localidade.startsWith("União das freguesias")) {
+        let result = [];
+        let locsArr = localidade.replace("União das freguesias de ", "").split(",");
+
+        for (i = 0; i < locsArr.length; i++) {
+            if (i == locsArr.length - 1) {
+                result = [...result, ...locsArr[i].split(' e ')]
+            } else {
+                result = [...result, locsArr[i]]
+            }
+        }
+
+        return result;
+    }
+
+    return [localidade]
+}
+
+const localidades = [
     "Aguada de Cima",
     "Fermentelos",
     "Macinhata do Vouga",
