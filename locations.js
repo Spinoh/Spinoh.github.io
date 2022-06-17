@@ -1,14 +1,14 @@
-function getLocalidades() {
+function getLocations() {
     let result = []
 
-    // localidades.map(local => {
+    // locations.map(local => {
     //     return splitUnion(local)
     // })
     //     .map(local => {
     //         result = [...result, ...local]
     //     });
 
-    return localidades.map(local => {
+    return locations.map(local => {
         return [
             local,
             local.normalize('NFD')
@@ -21,10 +21,10 @@ function getLocalidades() {
     })
 }
 
-function splitUnion(localidade) {
-    if (localidade.startsWith("União das freguesias")) {
+function splitUnion(local) {
+    if (local.startsWith("União das freguesias")) {
         let result = [];
-        let locsArr = localidade.replace("União das freguesias de ", "").split(",");
+        let locsArr = local.replace("União das freguesias de ", "").split(",");
 
         for (i = 0; i < locsArr.length; i++) {
             if (i == locsArr.length - 1) {
@@ -37,10 +37,10 @@ function splitUnion(localidade) {
         return result;
     }
 
-    return [localidade]
+    return [local]
 }
 
-const localidades = [
+const locations = [
     "Alcafaz",
     "À Cruz",
     "A de Barros",
