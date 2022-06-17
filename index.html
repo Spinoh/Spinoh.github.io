@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adivinhador</title>
-    <script src="freguesias.js"></script>
+    <script src="localidades.js"></script>
 </head>
 
 <body>
     <h1>Dá-me as letras que eu dou-te a freguesia</h1>
     <input type="text" id="letras">
-    <button onclick="checkFreguesias()" id="searchButton">PROCURAR</button>
+    <button onclick="checkLocalidades()" id="searchButton">PROCURAR</button>
     <p id="resposta"></p>
 </body>
 <script>
-    const freguesias = getFreguesias();
+    const freguesias = getLocalidades();
 
     let input = document.getElementById("letras");
 
@@ -29,7 +29,7 @@
         }
     });
 
-    function checkFreguesias() {
+    function checkLocalidades() {
         let letras = document.getElementById("letras").value.replace(/\s+/g, '').toLowerCase();
         let resposta = document.getElementById("resposta")
 
