@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adivinhador</title>
-    <script src="localidades.js"></script>
+    <script src="locations.js"></script>
 </head>
 
 <body>
     <h1>Dá-me as letras que eu dou-te a freguesia</h1>
-    <input type="text" id="letras">
-    <button onclick="checkLocalidades()" id="searchButton">PROCURAR</button>
-    <p id="resposta"></p>
+    <input type="text" id="letters">
+    <button onclick="checkLocations()" id="searchButton">PROCURAR</button>
+    <p id="answerOutput"></p>
 </body>
 <script>
-    const freguesias = getLocalidades();
+    const locationsList = getLocations();
 
-    let input = document.getElementById("letras");
+    let input = document.getElementById("letters");
 
 
     input.addEventListener("keypress", function (event) {
@@ -29,34 +29,55 @@
         }
     });
 
-    function checkLocalidades() {
-        let letras = document.getElementById("letras").value.replace(/\s+/g, '').toLowerCase();
-        let resposta = document.getElementById("resposta")
+    function checkLocations() {
+        let letters = document.getElementById("letters").value.replace(/\s+/g, '').toLowerCase();
+        let answerOutput = document.getElementById("answerOutput")
 
-        letrasArr = letras.split('').sort().join('')
+        let lettersArr = letters.split('').sort().join('')
 
-        if (letras.length == 0) {
-            resposta.innerText = `tens de escrever`
+        if (letters.length == 0) {
+            answerOutput.innerText = `tens de escrever`
         }
         else {
-            results = [];
+            let solution = "";
+            let suggestions = [];
 
-            for (i = 0; i < freguesias.length; i++) {
-                freguesiaName = freguesias[i][0]
-                freguesiaTester = freguesias[i][1]
+            for (let i = 0; i < locationsList.length; i++) {
+                let locationName = locationsList[i][0]
+                let locationTester = locationsList[i][1]
 
-                if (freguesiaTester === letrasArr) {
-                    results = [...results, freguesiaName]
+                if (locationTester === lettersArr) {
+                    solution = locationName
                     break
+                } else if (isValidSuggestion(lettersArr, locationTester)) {
+                    suggestions = [...suggestions, locationName]
                 }
             }
-            if (results.length > 0) {
-                resposta.innerText = `A freguesia é ${results.join('\n')}`
+            if (solution.length > 0) {
+                answerOutput.innerText = `A Localidade é ${solution}`
             } else {
-                resposta.innerText = `não consegui encontrar`
+                answerOutput.innerText = `não consegui encontrar mas tenho as seguintes sugestões: \n ${suggestions.sort(byLength).join("\n")}`
+            }
+        }
+    }
+
+    function byLength(a, b) {
+        return a.length - b.length
+    }
+
+    function isValidSuggestion(input, tester) {
+        let testerArr = tester.split('')
+        for (let i = 0; i < input.length; i++) {
+            if (!testerArr.includes(input[i])) {
+                return false
             }
         }
 
+        if (input.length <= tester.length && input.length + 5 >= tester.length) {
+            return true
+        }
+
+        return false
     }
 
 </script>
