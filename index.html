@@ -39,7 +39,7 @@
             answerOutput.innerText = `tens de escrever`
         }
         else {
-            let solution = "";
+            let solutions = [];
             let suggestions = [];
 
             for (let i = 0; i < locationsList.length; i++) {
@@ -47,14 +47,13 @@
                 let locationTester = locationsList[i][1]
 
                 if (locationTester === lettersArr) {
-                    solution = locationName
-                    break
+                    solutions = [...locationName, locationName]
                 } else if (isValidSuggestion(lettersArr, locationTester)) {
                     suggestions = [...suggestions, locationName]
                 }
             }
-            if (solution.length > 0) {
-                answerOutput.innerText = `A Localidade é ${solution}`
+            if (solutions.length > 0) {
+                answerOutput.innerText = `A Localidade é ${solution.join("\n")}`
             } else {
                 answerOutput.innerText = `não consegui encontrar mas tenho as seguintes sugestões: \n ${suggestions.sort(byLength).join("\n")}`
             }
