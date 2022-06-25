@@ -47,13 +47,13 @@
                 let locationTester = locationsList[i][1]
 
                 if (locationTester === lettersArr) {
-                    solutions = [...locationName, locationName]
+                    solutions = [...solutions, locationName]
                 } else if (isValidSuggestion(lettersArr, locationTester)) {
                     suggestions = [...suggestions, locationName]
                 }
             }
             if (solutions.length > 0) {
-                answerOutput.innerText = `A Localidade é ${solution.join("\n")}`
+                answerOutput.innerText = `A Localidade é ${solutions.join("\n")}`
             } else {
                 answerOutput.innerText = `não consegui encontrar mas tenho as seguintes sugestões: \n ${suggestions.sort(byLength).join("\n")}`
             }
